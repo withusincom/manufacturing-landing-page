@@ -1,0 +1,39 @@
+@layer theme, base, antd, components, utilities;
+
+@import 'tailwindcss';
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* 부드러운 스크롤을 위한 추가 설정 */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Inter', sans-serif;
+    overscroll-behavior-y: contain;
+  }
+
+  :where(p, span, li, h1, h2, h3, h4, h5, h6, a, button, label, td, th) {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  pre,
+  code {
+    overflow-x: auto;
+    white-space: pre;
+  }
+}
+
+@layer utilities {
+  .scroll-down-indicator {
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+  }
+}
