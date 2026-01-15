@@ -8,7 +8,7 @@ export const CONTENT = {
   heading: '우리 현장에 이 방식이 맞는지\n먼저 확인해보세요.',
   description:
     '모든 제조 현장에 동일한 AI가 맞지는 않습니다.\n현재 사용 중인 MES, 데이터 상태, 반복되는 문제 유형을 기준으로\n이 서비스가 실제로 도움이 될 수 있는지부터 함께 검토합니다.\n도입을 전제로 하지 않아도 괜찮습니다. 현장의 상황을 이해하는 것부터 시작합니다.',
-  email: 'cwheo@withusin.com',
+  email: 'jwseo@withusin.com',
   emailButton: '메일 전송',
   address: '울산 남구 테크노산업로 55번길 10,\nAI 혁신파크 209호',
   mapUrl:
