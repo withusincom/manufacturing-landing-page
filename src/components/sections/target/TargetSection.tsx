@@ -159,7 +159,7 @@ const TargetSection = () => {
         </motion.div>
 
         <motion.div variants={fadeUpVariants} transition={{ duration: 0.5 }}>
-          <P strong color={COLORS.g400}>
+          <P strong color={COLORS.gray600}>
             {TARGET_CONTENT.description}
           </P>
         </motion.div>
