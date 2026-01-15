@@ -43,7 +43,6 @@ const ContactForm = ({ colors, onSubmit }: ContactFormProps) => {
     }>
     outOfDate?: boolean
   }) => {
-    console.log('form ', form.getFieldsValue())
     if (!errorInfo.errorFields || errorInfo.errorFields.length === 0) {
       return
     }

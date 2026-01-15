@@ -77,7 +77,7 @@ export const ContactSection = ({ mode = 'light' }: ContactSectionProps) => {
     question: string
     checkbox: boolean
   }) => {
-    console.log('data', data)
+    return null
   }
 
   return (
