@@ -1,7 +1,7 @@
-import FlexCenter from '@/components/ui/FlexCenter'
+import { FlexCenter, Image } from '@/components/ui'
 import { cx } from '@/lib/utils'
-import { Card, Flex, Image } from 'antd'
-import { motion, Transition, Variants } from 'motion/react'
+import { Card, Flex } from 'antd'
+import { motion, Variants } from 'motion/react'
 
 const MotionCard = motion.create(Card)
 
@@ -9,8 +9,7 @@ export interface ServiceImageCardProps {
   src: string
   alt: string
   backgroundColor: string
-  variants: Variants
-  transition: Transition
+  variants?: Variants
 }
 
 const ServiceImageCard = ({
@@ -18,14 +17,12 @@ const ServiceImageCard = ({
   alt,
   backgroundColor,
   variants,
-  transition,
   ...restProps
 }: ServiceImageCardProps) => {
   return (
     <MotionCard
       className="overflow-hidden rounded-3xl flex-1"
       variants={variants}
-      transition={transition}
     >
       <FlexCenter
         center
@@ -47,7 +44,6 @@ const ServiceImageCard = ({
             width={'100%'}
             height={'100%'}
             className="object-cover rounded-xl"
-            preview={false}
             {...restProps}
           />
         </Flex>

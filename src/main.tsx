@@ -7,7 +7,6 @@ import koKR from 'antd/es/locale/ko_KR'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-import ScrollToTop from './components/ui/ScrollToTop'
 
 const customTheme: ThemeConfig = {
   token: {
@@ -20,7 +19,6 @@ const Main = () => (
     <StyleProvider layer hashPriority="high">
       <ConfigProvider theme={customTheme} locale={koKR}>
         <BrowserRouter future={{ v7_startTransition: true }}>
-          <ScrollToTop />
           <App />
         </BrowserRouter>
       </ConfigProvider>

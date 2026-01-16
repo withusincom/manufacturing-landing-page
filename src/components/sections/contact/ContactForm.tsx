@@ -1,7 +1,4 @@
-import Input from '@/components/ui/Input'
-import Text from '@/components/ui/Text'
-import TextArea from '@/components/ui/TextArea'
-import Title from '@/components/ui/Title'
+import { Input, Text, TextArea, Title } from '@/components/ui'
 import { cx } from '@/lib/utils'
 import { ColorMode } from '@/styles/Colors'
 import { Button, Checkbox, Flex, Form, message } from 'antd'

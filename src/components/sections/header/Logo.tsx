@@ -1,4 +1,4 @@
-import Text from '@/components/ui/Text'
+import { Text } from '@/components/ui'
 import { cx } from '@/lib/utils'
 import { Flex, Image } from 'antd'
 

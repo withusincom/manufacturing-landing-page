@@ -1,7 +1,7 @@
 import { Flex } from 'antd'
 import { cx } from '@/lib/utils'
 
-type ImageWrapperProps = React.ComponentProps<typeof Flex>
+export type ImageWrapperProps = React.ComponentProps<typeof Flex>
 
 const ImageWrapper = ({
   className,
