@@ -1,17 +1,31 @@
 import { Service } from '@/constants/services'
 import { Flex } from 'antd'
-import { motion } from 'motion/react'
+import { motion, stagger } from 'motion/react'
 import ServiceFeature from './ServiceFeature'
 import ServiceImageCard from './ServiceImageCard'
 
-const fadeUpVariants = {
+const container = {
+  hidden: {},
+  visible: {
+    transition: {
+      delayChildren: stagger(0.1, { startDelay: 0.2 }),
+    },
+  },
+}
+
+const feature = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
 }
 
 interface ServiceSectionProps {
   service: Service
-  index?: number
 }
 
 const getBadgeColor = (badgeColor: string): string => {
@@ -26,19 +40,17 @@ const getBadgeColor = (badgeColor: string): string => {
   return colorMap[badgeColor] || '#1677ff'
 }
 
-export const ServiceItem = ({ service, index = 0 }: ServiceSectionProps) => {
+export const ServiceItem = ({ service }: ServiceSectionProps) => {
   return (
-    <motion.section
-      id={`service-${service.id}`}
+    <motion.div
       className="py-24"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      variants={fadeUpVariants}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      variants={container}
     >
       <Flex
-        vertical={true}
+        vertical
         className={`${
           service.layout === 'right' ? 'lg:flex-row-reverse' : 'lg:flex-row'
         }`}
@@ -53,16 +65,16 @@ export const ServiceItem = ({ service, index = 0 }: ServiceSectionProps) => {
           number={service.number}
           title={service.heading}
           description={service.description}
+          variants={feature}
         />
         <ServiceImageCard
           src={service.imgSrc}
           alt={service.badge}
           backgroundColor={service.backgroundColor}
-          variants={fadeUpVariants}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          variants={feature}
         />
       </Flex>
-    </motion.section>
+    </motion.div>
   )
 }
 

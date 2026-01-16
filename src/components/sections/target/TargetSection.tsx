@@ -1,14 +1,16 @@
-import CategoryLabel from '@/components/ui/CategoryLabel'
-import FlexCenter from '@/components/ui/FlexCenter'
-import Image from '@/components/ui/Image'
-import ImageWrapper from '@/components/ui/ImageWrapper'
-import P from '@/components/ui/P'
-import Text from '@/components/ui/Text'
-import Title from '@/components/ui/Title'
+import {
+  CategoryLabel,
+  FlexCenter,
+  Image,
+  MotionGroup,
+  P,
+  Text,
+  Title,
+} from '@/components/ui'
 import { cx } from '@/lib/utils'
 import { COLORS } from '@/styles/Colors'
 import { Flex, Segmented } from 'antd'
-import { motion } from 'motion/react'
+import { motion, stagger } from 'motion/react'
 import { useState } from 'react'
 import styled from 'styled-components'
 
@@ -115,9 +117,24 @@ const TARGET_CONTENT: TargetContent = {
   ],
 }
 
-const fadeUpVariants = {
+const container = {
+  hidden: {},
+  visible: {
+    transition: {
+      delayChildren: stagger(0.1, { startDelay: 0.2 }),
+    },
+  },
+}
+
+const feature = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
 }
 
 const TargetSection = () => {
@@ -143,64 +160,55 @@ const TargetSection = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      transition={{ staggerChildren: 0.15 }}
+      variants={container}
     >
       <FlexCenter center vertical>
-        <motion.div variants={fadeUpVariants} transition={{ duration: 0.5 }}>
+        <MotionGroup variants={feature}>
           <CategoryLabel color={COLORS.white} className="mb-4">
             <Text sm medium>
               {TARGET_CONTENT.categoryLabel}
             </Text>
           </CategoryLabel>
-        </motion.div>
 
-        <motion.div variants={fadeUpVariants} transition={{ duration: 0.5 }}>
-          <Title>{TARGET_CONTENT.title}</Title>
-        </motion.div>
+          <Title className="px-4">{TARGET_CONTENT.title}</Title>
 
-        <motion.div variants={fadeUpVariants} transition={{ duration: 0.5 }}>
-          <P strong color={COLORS.gray600}>
+          <P className="px-4" strong color={COLORS.gray600}>
             {TARGET_CONTENT.description}
           </P>
-        </motion.div>
 
-        <motion.div variants={fadeUpVariants} transition={{ duration: 0.5 }}>
           <StyledSegmented
-            size="large"
+            size="small"
             options={targetOptions}
-            className="p-2"
+            className="mt-2 p-2"
             onChange={handleSegmentChange}
           />
-        </motion.div>
 
-        <motion.div variants={fadeUpVariants} transition={{ duration: 0.5 }}>
-          <Flex className="bg-white rounded-2xl shadow-md-12">
-            {
-              <Flex gap={48} className={cx('lg:gap-16 p-12 max-lg:flex-col')}>
-                <ImageWrapper className="max-w-md">
-                  <Image
-                    src={targetItems.image.src}
-                    alt={targetItems.image.alt}
-                  />
-                </ImageWrapper>
+          <FlexCenter
+            center
+            gap={48}
+            className={cx('lg:gap-16 my-12 max-lg:p-6 max-lg:flex-col')}
+          >
+            <Image
+              src={targetItems.image.src}
+              alt={targetItems.image.alt}
+              className="w-full max-w-md shadow-lg rounded-xl"
+            />
 
-                <Flex vertical gap={16} className="m-4 pl-4">
-                  <Title text3xl>{targetItems.title}</Title>
+            <Flex vertical gap={16} className="max-w-md">
+              <Title text3xl>{targetItems.title}</Title>
 
-                  <P xl> {targetItems.description}</P>
+              <P xl> {targetItems.description}</P>
 
-                  <ul className="space-y-2">
-                    {targetItems.points.map((point, index) => (
-                      <li key={`${targetItems.id}${index}`}>
-                        <Text lg>{point}</Text>
-                      </li>
-                    ))}
-                  </ul>
-                </Flex>
-              </Flex>
-            }
-          </Flex>
-        </motion.div>
+              <ul className="space-y-2">
+                {targetItems.points.map((point, index) => (
+                  <li key={`${targetItems.id}${index}`}>
+                    <Text lg>{point}</Text>
+                  </li>
+                ))}
+              </ul>
+            </Flex>
+          </FlexCenter>
+        </MotionGroup>
       </FlexCenter>
     </motion.section>
   )
@@ -220,6 +228,10 @@ const StyledSegmented = styled(Segmented)`
     align-items: center;
     justify-content: center;
     padding: 8px 32px;
+
+    @media (max-width: 390px) {
+      padding: 8px 16px;
+    }
   }
 
   .ant-segmented-item-label {

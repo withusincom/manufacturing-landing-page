@@ -1,6 +1,5 @@
+import { FlexCenter, FlexCenterProps, Text } from '@/components/ui'
 import { cx } from '@/lib/utils'
-import FlexCenter, { FlexCenterProps } from './FlexCenter'
-import Text from './Text'
 
 export type CategoryLabelProps = {
   color: string

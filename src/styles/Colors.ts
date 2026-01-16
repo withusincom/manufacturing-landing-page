@@ -130,17 +130,6 @@ export const COLORS_MODE = {
     gradientStart: '#D4B3FF',
     gradientEnd: '#FF8C00',
   },
-  dark: {
-    background: '#111111',
-    cardBackground: '#1F1F1F',
-    formCardBackground: '#1A1A1A',
-    text: '#FFFFFF',
-    textSecondary: '#BBBBBB',
-    buttonBackground: '#FFFFFF',
-    buttonText: '#111111',
-    inputBackground: '#2A2A2A',
-    placeholderText: '#666666',
-  },
 } as const
 
 export type ColorMode = (typeof COLORS_MODE)[keyof typeof COLORS_MODE]

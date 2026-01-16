@@ -1,4 +1,4 @@
-import Link from '@/components/ui/Link'
+import { Link } from '@/components/ui'
 import { LegalMenuList } from '@/constants/menuList'
 import { cx } from '@/lib/utils'
 import { Divider, Flex } from 'antd'

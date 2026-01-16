@@ -7,7 +7,7 @@ import { cx } from '@/lib/utils'
 import { Typography } from 'antd'
 import type { ParagraphProps as AntdParagraphProps } from 'antd/es/typography/Paragraph'
 
-export type ParagraphProps = AntdParagraphProps & TypographyProps
+export type PProps = AntdParagraphProps & TypographyProps
 
 const { Paragraph: AntdParagraph } = Typography
 
@@ -40,7 +40,7 @@ const P = ({
   extrabold,
   fontBlack,
   ...restProps
-}: React.PropsWithChildren<ParagraphProps>) => {
+}: React.PropsWithChildren<PProps>) => {
   return (
     <AntdParagraph
       ref={ref}

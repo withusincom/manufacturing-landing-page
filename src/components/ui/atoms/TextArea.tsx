@@ -1,7 +1,10 @@
 import { Input } from 'antd'
-import { TextAreaProps } from 'antd/es/input/TextArea'
+import { TextAreaProps as AntdTextAreaProps } from 'antd/es/input/TextArea'
 
 const { TextArea: AntdTextArea } = Input
+
+export type TextAreaProps = AntdTextAreaProps
+
 const TextArea = (props: TextAreaProps) => {
   return <AntdTextArea {...props} />
 }

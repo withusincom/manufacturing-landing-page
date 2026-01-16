@@ -1,7 +1,7 @@
 import { Flex } from 'antd'
 import React from 'react'
 
-export interface FlexCenterProps extends React.ComponentProps<typeof Flex> {
+export type FlexCenterProps = React.ComponentProps<typeof Flex> & {
   center?: boolean
   centerX?: boolean
   centerY?: boolean

@@ -1,12 +1,10 @@
-import Text from '@/components/ui/Text'
+import { Button, CategoryLabel, Text, Title } from '@/components/ui'
 import { cx } from '@/lib/utils'
-import { motion } from 'motion/react'
-import { CONTENT } from './ContactSection'
-import Title from '@/components/ui/Title'
-import { Button, Space } from 'antd'
-import ContactCard from './ContactCard'
+import { Space } from 'antd'
 import { Mail, MapPin } from 'lucide-react'
-import CategoryLabel from '@/components/ui/CategoryLabel'
+import { motion } from 'motion/react'
+import ContactCard from './ContactCard'
+import { CONTENT } from './ContactSection'
 
 const fadeUpVariants = {
   hidden: { opacity: 0, y: 30 },
