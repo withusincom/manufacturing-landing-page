@@ -1,10 +1,13 @@
-import CategoryLabel from '@/components/ui/CategoryLabel'
-import FlexCenter from '@/components/ui/FlexCenter'
-import Image from '@/components/ui/Image'
-import ImageWrapper from '@/components/ui/ImageWrapper'
-import P from '@/components/ui/P'
-import Text from '@/components/ui/Text'
-import Title from '@/components/ui/Title'
+import {
+  CategoryLabel,
+  FlexCenter,
+  Image,
+  ImageWrapper,
+  MotionGroup,
+  P,
+  Text,
+  Title,
+} from '@/components/ui'
 import { cx } from '@/lib/utils'
 import { COLORS } from '@/styles/Colors'
 import { Flex, Segmented } from 'antd'
@@ -143,64 +146,54 @@ const TargetSection = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      transition={{ staggerChildren: 0.15 }}
+      transition={{ duration: 0.5 }}
     >
       <FlexCenter center vertical>
-        <motion.div variants={fadeUpVariants} transition={{ duration: 0.5 }}>
+        <MotionGroup>
           <CategoryLabel color={COLORS.white} className="mb-4">
             <Text sm medium>
               {TARGET_CONTENT.categoryLabel}
             </Text>
           </CategoryLabel>
-        </motion.div>
-
-        <motion.div variants={fadeUpVariants} transition={{ duration: 0.5 }}>
-          <Title>{TARGET_CONTENT.title}</Title>
-        </motion.div>
-
-        <motion.div variants={fadeUpVariants} transition={{ duration: 0.5 }}>
+          <Title className="p-4">{TARGET_CONTENT.title}</Title>
           <P strong color={COLORS.gray600}>
             {TARGET_CONTENT.description}
           </P>
-        </motion.div>
-
-        <motion.div variants={fadeUpVariants} transition={{ duration: 0.5 }}>
           <StyledSegmented
-            size="large"
+            size="small"
             options={targetOptions}
             className="p-2"
             onChange={handleSegmentChange}
           />
-        </motion.div>
-
-        <motion.div variants={fadeUpVariants} transition={{ duration: 0.5 }}>
           <Flex className="bg-white rounded-2xl shadow-md-12">
-            {
-              <Flex gap={48} className={cx('lg:gap-16 p-12 max-lg:flex-col')}>
-                <ImageWrapper className="max-w-md">
-                  <Image
-                    src={targetItems.image.src}
-                    alt={targetItems.image.alt}
-                  />
-                </ImageWrapper>
+            <FlexCenter
+              center
+              gap={48}
+              className={cx('lg:gap-16 p-12 max-lg:flex-col')}
+            >
+              <ImageWrapper className="max-w-md" flex={1}>
+                <Image
+                  src={targetItems.image.src}
+                  alt={targetItems.image.alt}
+                />
+              </ImageWrapper>
 
-                <Flex vertical gap={16} className="m-4 pl-4">
-                  <Title text3xl>{targetItems.title}</Title>
+              <Flex vertical gap={16} flex={1}>
+                <Title text3xl>{targetItems.title}</Title>
 
-                  <P xl> {targetItems.description}</P>
+                <P xl> {targetItems.description}</P>
 
-                  <ul className="space-y-2">
-                    {targetItems.points.map((point, index) => (
-                      <li key={`${targetItems.id}${index}`}>
-                        <Text lg>{point}</Text>
-                      </li>
-                    ))}
-                  </ul>
-                </Flex>
+                <ul className="space-y-2">
+                  {targetItems.points.map((point, index) => (
+                    <li key={`${targetItems.id}${index}`}>
+                      <Text lg>{point}</Text>
+                    </li>
+                  ))}
+                </ul>
               </Flex>
-            }
+            </FlexCenter>
           </Flex>
-        </motion.div>
+        </MotionGroup>
       </FlexCenter>
     </motion.section>
   )
@@ -220,6 +213,10 @@ const StyledSegmented = styled(Segmented)`
     align-items: center;
     justify-content: center;
     padding: 8px 32px;
+
+    @media (max-width: 390px) {
+      padding: 8px 16px;
+    }
   }
 
   .ant-segmented-item-label {

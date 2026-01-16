@@ -1,4 +1,4 @@
-import FlexCenter from '@/components/ui/FlexCenter'
+import { FlexCenter } from '@/components/ui'
 import { cx } from '@/lib/utils'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'

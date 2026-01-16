@@ -1,4 +1,4 @@
-import Text from '@/components/ui/Text'
+import { Text } from '@/components/ui'
 import { cx } from '@/lib/utils'
 import { Card, Flex } from 'antd'
 import { PropsWithChildren } from 'react'

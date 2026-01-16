@@ -1,4 +1,4 @@
-import Link from '@/components/ui/Link'
+import { Link } from '@/components/ui'
 import { MENU_LIST } from '@/constants/menuList'
 import { cx, scrollToSection } from '@/lib/utils'
 

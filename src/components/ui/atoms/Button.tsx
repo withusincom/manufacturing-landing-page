@@ -2,7 +2,7 @@ import { buttonSizes } from '@/lib/button'
 import { Button as AntdButton } from 'antd'
 import { ButtonProps as AntdButtonProps } from 'antd/es/button'
 
-type ButtonProps = AntdButtonProps & {
+export type ButtonProps = AntdButtonProps & {
   sm?: boolean
   lg?: boolean
   media?: boolean

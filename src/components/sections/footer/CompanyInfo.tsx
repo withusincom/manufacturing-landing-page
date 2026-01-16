@@ -1,4 +1,4 @@
-import Text from '@/components/ui/Text'
+import { Text } from '@/components/ui'
 import { COMPANY_INFO } from '@/constants/footer'
 import { cx } from '@/lib/utils'
 import { Divider, Flex } from 'antd'

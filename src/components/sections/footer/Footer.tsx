@@ -5,7 +5,7 @@ import CompanyInfo from './CompanyInfo'
 import Copyright from './Copyright'
 import FooterMenu from './FooterMenu'
 import LegalMenu from './LegalMenu'
-import Title from '@/components/ui/Title'
+import { Title } from '@/components/ui'
 import { COMPANY_INFO } from '@/constants/footer'
 
 export const Footer = () => {

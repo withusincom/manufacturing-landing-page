@@ -36,7 +36,7 @@ export const SERVICES: Service[] = [
       '이상 이벤트 발생 시 LLM이 설비 로그, 품질 데이터, 작업자 입력을 자동으로 수집해 표준 RCA 템플릿 초안을 생성합니다. 5Why 구조에 따라 원인 가설과 근거 데이터를 연결하고, 과거 유사 사례와 재발 가능성을 함께 제시합니다. 관리자는 초안을 검토·보완하는 역할만 수행해 RCA 작성 시간을 대폭 단축할 수 있습니다. 확정된 RCA는 지식 데이터로 축적되어 동일 문제가 반복되지 않도록 활용됩니다.',
     imgSrc: '/assets/service2.jpg',
     backgroundColor: 'bg-blue-600/20',
-    layout: 'left',
+    layout: 'right',
   },
   {
     id: 2,
@@ -49,7 +49,7 @@ export const SERVICES: Service[] = [
       '대량의 레이블 데이터 대신 설비 구조, 공정 규칙, 물리적 허용 범위를 선지식으로 활용해 이상 가능성을 판단합니다. 센서 값과 공정 조건이 물리적으로 타당한 범위를 벗어나는지를 먼저 검증해 실효성 없는 알람을 줄입니다. 판단 결과는 LLM이 자연어로 설명해 현장과 관리자가 즉시 이해할 수 있습니다. 외부 컨설팅이나 복잡한 모델 학습 없이 내부 운영이 가능한 현실적인 AI 설계입니다.',
     imgSrc: '/assets/service3.jpg',
     backgroundColor: 'bg-emerald-500/20',
-    layout: 'right',
+    layout: 'left',
   },
   {
     id: 3,
@@ -62,6 +62,6 @@ export const SERVICES: Service[] = [
       '이상 발생 즉시 LLM이 무엇이 어디서 발생했는지와 위험도를 자동 요약합니다. 현장 단독으로 실행 가능한 조치와 관리자 승인 필요 조치를 구분해 즉시 안내합니다. 매뉴얼 검색 없이 상황에 맞는 실행 가이드를 제공하고, 조치 내용은 자동으로 기록·보고됩니다. 초기 대응 지연으로 발생하던 생산 손실을 실질적으로 줄일 수 있습니다.',
     imgSrc: '/assets/service4.jpg',
     backgroundColor: 'bg-slate-700/20',
-    layout: 'left',
+    layout: 'right',
   },
 ]
