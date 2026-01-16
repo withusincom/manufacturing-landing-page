@@ -2,7 +2,6 @@ import {
   CategoryLabel,
   FlexCenter,
   Image,
-  ImageWrapper,
   MotionGroup,
   P,
   Text,
@@ -11,7 +10,7 @@ import {
 import { cx } from '@/lib/utils'
 import { COLORS } from '@/styles/Colors'
 import { Flex, Segmented } from 'antd'
-import { motion } from 'motion/react'
+import { motion, stagger } from 'motion/react'
 import { useState } from 'react'
 import styled from 'styled-components'
 
@@ -118,9 +117,24 @@ const TARGET_CONTENT: TargetContent = {
   ],
 }
 
-const fadeUpVariants = {
+const container = {
+  hidden: {},
+  visible: {
+    transition: {
+      delayChildren: stagger(0.1, { startDelay: 0.2 }),
+    },
+  },
+}
+
+const feature = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
 }
 
 const TargetSection = () => {
@@ -146,53 +160,54 @@ const TargetSection = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
+      variants={container}
     >
       <FlexCenter center vertical>
-        <MotionGroup>
+        <MotionGroup variants={feature}>
           <CategoryLabel color={COLORS.white} className="mb-4">
             <Text sm medium>
               {TARGET_CONTENT.categoryLabel}
             </Text>
           </CategoryLabel>
-          <Title className="p-4">{TARGET_CONTENT.title}</Title>
-          <P strong color={COLORS.gray600}>
+
+          <Title className="px-4">{TARGET_CONTENT.title}</Title>
+
+          <P className="px-4" strong color={COLORS.gray600}>
             {TARGET_CONTENT.description}
           </P>
+
           <StyledSegmented
             size="small"
             options={targetOptions}
-            className="p-2"
+            className="mt-2 p-2"
             onChange={handleSegmentChange}
           />
-          <Flex className="bg-white rounded-2xl shadow-md-12">
-            <FlexCenter
-              center
-              gap={48}
-              className={cx('lg:gap-16 p-12 max-lg:flex-col')}
-            >
-              <ImageWrapper className="max-w-md" flex={1}>
-                <Image
-                  src={targetItems.image.src}
-                  alt={targetItems.image.alt}
-                />
-              </ImageWrapper>
 
-              <Flex vertical gap={16} flex={1}>
-                <Title text3xl>{targetItems.title}</Title>
+          <FlexCenter
+            center
+            gap={48}
+            className={cx('lg:gap-16 my-12 max-lg:p-6 max-lg:flex-col')}
+          >
+            <Image
+              src={targetItems.image.src}
+              alt={targetItems.image.alt}
+              className="w-full max-w-md shadow-lg rounded-xl"
+            />
 
-                <P xl> {targetItems.description}</P>
+            <Flex vertical gap={16} className="max-w-md">
+              <Title text3xl>{targetItems.title}</Title>
 
-                <ul className="space-y-2">
-                  {targetItems.points.map((point, index) => (
-                    <li key={`${targetItems.id}${index}`}>
-                      <Text lg>{point}</Text>
-                    </li>
-                  ))}
-                </ul>
-              </Flex>
-            </FlexCenter>
-          </Flex>
+              <P xl> {targetItems.description}</P>
+
+              <ul className="space-y-2">
+                {targetItems.points.map((point, index) => (
+                  <li key={`${targetItems.id}${index}`}>
+                    <Text lg>{point}</Text>
+                  </li>
+                ))}
+              </ul>
+            </Flex>
+          </FlexCenter>
         </MotionGroup>
       </FlexCenter>
     </motion.section>
