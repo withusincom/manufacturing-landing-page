@@ -8,7 +8,7 @@ const ServicesSection = () => {
       className="flex justify-center items-start gap-8 px-4 lg:px-8 max-w-[1280px] mx-auto"
     >
       <div className="flex-1 max-w-[922px]">
-        {SERVICES.map((service, index) => (
+        {SERVICES.map((service) => (
           <ServiceItem key={service.id} service={service} />
         ))}
       </div>

@@ -5,10 +5,8 @@ import ServiceFeature from './ServiceFeature'
 import ServiceImageCard from './ServiceImageCard'
 
 const container = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: {},
   visible: {
-    opacity: 1,
-    y: 0,
     transition: {
       delayChildren: stagger(0.1, { startDelay: 0.2 }),
     },
