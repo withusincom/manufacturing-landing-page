@@ -1,3 +1,4 @@
+import { cx } from '@/lib/utils'
 import { motion } from 'motion/react'
 import { Children } from 'react'
 
@@ -10,6 +11,7 @@ const MotionGroup = ({
   transition,
   children,
   viewport,
+  className,
   ...restProps
 }: MotionGroupProps) => {
   return (
@@ -20,6 +22,7 @@ const MotionGroup = ({
             variants={variants}
             transition={transition}
             viewport={viewport || { once: true }}
+            className={cx(className)}
             {...restProps}
           >
             {child}
