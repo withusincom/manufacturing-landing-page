@@ -1,34 +1,26 @@
-import {
-  CategoryLabel,
-  FlexCenter,
-  Image,
-  MotionGroup,
-  P,
-  Text,
-  Title,
-} from '@/components/ui'
-import { cx } from '@/lib/utils'
-import { COLORS } from '@/styles/Colors'
-import { Flex, Segmented } from 'antd'
+import { FlexCenter, Text } from '@/components/ui'
 import { motion, stagger } from 'motion/react'
 import { useState } from 'react'
-import styled from 'styled-components'
+import TargetContents from './TargetContent'
+import TargetHeader from './TargetHeader'
 
-type TargetContent = {
+export type TargetContentItem = {
+  id: React.Key
+  label: string
+  image: { src: string; alt: string }
+  title: React.ReactNode
+  description: React.ReactNode
+  points: React.ReactNode[]
+}
+
+export type TargetContentData = {
   categoryLabel: string
   title: React.ReactNode
   description: React.ReactNode
-  items: {
-    id: React.Key
-    label: string
-    image: { src: string; alt: string }
-    title: React.ReactNode
-    description: React.ReactNode
-    points: React.ReactNode[]
-  }[]
+  items: TargetContentItem[]
 }
 
-const TARGET_CONTENT: TargetContent = {
+const TARGET_CONTENT: TargetContentData = {
   categoryLabel: '타겟 사용자',
   title: '아직 데이터가 없어도, 시작할 수 있습니다',
   description:
@@ -126,7 +118,7 @@ const container = {
   },
 }
 
-const feature = {
+export const feature = {
   hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
@@ -150,7 +142,7 @@ const TargetSection = () => {
     value: item.id,
   }))
 
-  const targetItems = TARGET_CONTENT.items.find(
+  const targetItem = TARGET_CONTENT.items.find(
     (item) => item.id === selectedSegment,
   )
 
@@ -163,82 +155,15 @@ const TargetSection = () => {
       variants={container}
     >
       <FlexCenter center vertical>
-        <MotionGroup variants={feature}>
-          <CategoryLabel color={COLORS.white} className="mb-4">
-            <Text sm medium>
-              {TARGET_CONTENT.categoryLabel}
-            </Text>
-          </CategoryLabel>
-
-          <Title className="px-4">{TARGET_CONTENT.title}</Title>
-
-          <P className="px-4" strong color={COLORS.gray600}>
-            {TARGET_CONTENT.description}
-          </P>
-
-          <StyledSegmented
-            size="small"
-            options={targetOptions}
-            className="mt-2 p-2"
-            onChange={handleSegmentChange}
-          />
-
-          <FlexCenter
-            center
-            gap={48}
-            className={cx('lg:gap-16 my-12 max-lg:p-6 max-lg:flex-col')}
-          >
-            <Image
-              src={targetItems.image.src}
-              alt={targetItems.image.alt}
-              className="w-full max-w-md shadow-lg rounded-xl"
-            />
-
-            <Flex vertical gap={16} className="max-w-md">
-              <Title text3xl>{targetItems.title}</Title>
-
-              <P xl> {targetItems.description}</P>
-
-              <ul className="space-y-2">
-                {targetItems.points.map((point, index) => (
-                  <li key={`${targetItems.id}${index}`}>
-                    <Text lg>{point}</Text>
-                  </li>
-                ))}
-              </ul>
-            </Flex>
-          </FlexCenter>
-        </MotionGroup>
+        <TargetHeader data={TARGET_CONTENT} />
+        <TargetContents
+          options={targetOptions}
+          item={targetItem}
+          onChange={handleSegmentChange}
+        />
       </FlexCenter>
     </motion.section>
   )
 }
 
 export default TargetSection
-
-const StyledSegmented = styled(Segmented)`
-  .ant-segmented-group {
-    margin: 0 auto;
-    height: 48px;
-  }
-
-  .ant-segmented-item {
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 32px;
-
-    @media (max-width: 480px) {
-      padding: 8px 16px;
-    }
-  }
-
-  .ant-segmented-item-label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    font-weight: 600;
-  }
-`

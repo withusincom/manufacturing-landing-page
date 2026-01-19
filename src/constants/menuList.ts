@@ -8,7 +8,7 @@ export const MENU_LIST: MenuList[] = [
   {
     id: 'home',
     label: '홈',
-    href: '#home',
+    href: '/',
   },
   {
     id: 'solutions',
