@@ -9,7 +9,7 @@ const deliverable: Variants = {
     x: 0,
     transition: {
       duration: 0.5,
-      delay: 0.6 + index * 0.1,
+      delay: 0.3 + index * 0.1,
     },
   }),
 }
