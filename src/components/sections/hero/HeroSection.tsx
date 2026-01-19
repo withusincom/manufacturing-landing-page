@@ -40,9 +40,8 @@ export const HeroSection = () => {
     }
   }, [])
   return (
-    <section id="home" className="bg-white pb-6 relative">
+    <section id="hero" className="bg-white pb-6 relative">
       <div className="relative" ref={splineContainerRef}>
-        <div className="bg-linear-to-tr from-[#BDD6EB] to-[#D1E1EF] w-full h-6"></div>
         <Spline scene="https://prod.spline.design/FA7jps2pxNFc5u0R/scene.splinecode" />
         {/* 오른쪽 하단 문구 가리기 */}
         <div className="absolute bg-linear-to-tr from-[#BDD6EB] to-[#D1E1EF] w-[160px] h-v bottom-0 right-0 z-50"></div>

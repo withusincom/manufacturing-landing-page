@@ -1,5 +1,5 @@
 import { cx } from '@/lib/utils'
-import { Divider, Flex, FloatButton } from 'antd'
+import { Divider, Flex, FloatButton, Layout } from 'antd'
 import { ChevronUp } from 'lucide-react'
 import CompanyInfo from './CompanyInfo'
 import Copyright from './Copyright'
@@ -7,6 +7,8 @@ import FooterMenu from './FooterMenu'
 import LegalMenu from './LegalMenu'
 import { Title } from '@/components/ui'
 import { COMPANY_INFO } from '@/constants/footer'
+
+const { Footer: AntdFooter } = Layout
 
 export const Footer = () => {
   const scrollToTop = () => {
@@ -22,7 +24,7 @@ export const Footer = () => {
         shape="circle"
         className={cx('right-8 bottom-8', 'border-white')}
       />
-      <footer className="bg-black text-white px-8 md:px-16 py-16">
+      <AntdFooter className="bg-black text-white px-8 md:px-16 py-16">
         {/* 최대 너비 컨테이너로 콘텐츠 너비 제한 */}
         <div className="max-w-7xl mx-auto">
           <Flex
@@ -51,7 +53,7 @@ export const Footer = () => {
 
           <Copyright />
         </div>
-      </footer>
+      </AntdFooter>
     </>
   )
 }

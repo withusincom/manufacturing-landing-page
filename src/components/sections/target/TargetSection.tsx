@@ -229,7 +229,7 @@ const StyledSegmented = styled(Segmented)`
     justify-content: center;
     padding: 8px 32px;
 
-    @media (max-width: 390px) {
+    @media (max-width: 480px) {
       padding: 8px 16px;
     }
   }

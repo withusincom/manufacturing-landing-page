@@ -10,7 +10,7 @@ interface MobileMenuProps {
 const MobileMenu = ({ open, onClose }: MobileMenuProps) => {
   return (
     open && (
-      <div className="lg:hidden fixed inset-0 top-[90px] bg-black/80 backdrop-blur-sm z-40">
+      <div className="lg:hidden fixed inset-0 top-20 bg-black/80 backdrop-blur-sm z-40">
         <nav className="bg-black/90 p-8 flex flex-col gap-6">
           {MENU_LIST.map((menu) => (
             <Link

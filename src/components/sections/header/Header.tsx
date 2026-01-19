@@ -6,6 +6,9 @@ import Logo from './Logo'
 import MobileMenu from './MobileMenu'
 import MobileMenuButton from './MobileMenuButton'
 import NavBar from './NavBar'
+import { Layout } from 'antd'
+
+const { Header: AntdHeader } = Layout
 
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -22,15 +25,14 @@ export const Header = () => {
   }, [])
 
   return (
-    <header
+    <AntdHeader
       className={cx(
-        'fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300',
+        'flex justify-center items-center fixed left-0 right-0 z-50 transition-all duration-300 h-20',
         'bg-black',
         isScrolled ? '-translate-y-full' : 'translate-y-0',
       )}
-      role="banner"
     >
-      <FlexCenter centerY justify="space-between" className="h-[90px] px-11">
+      <FlexCenter centerY justify="space-between" className="w-full">
         <Link to="/">
           <Logo />
         </Link>
@@ -41,12 +43,11 @@ export const Header = () => {
           toggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         />
       </FlexCenter>
-
       <MobileMenu
         open={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
       />
-    </header>
+    </AntdHeader>
   )
 }
 

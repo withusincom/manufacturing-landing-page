@@ -5,19 +5,25 @@ import HeroSection from '@/components/sections/hero/HeroSection'
 import { PoCSection } from '@/components/sections/poc/PoCSection'
 import ServicesSection from '@/components/sections/services/ServicesSection'
 import TargetSection from '@/components/sections/target/TargetSection'
+import { Layout } from 'antd'
 
-export default function Index() {
+const { Content } = Layout
+
+export const Index = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <Layout className="min-h-screen bg-white">
       <Header />
-      <main>
+      <Content>
+        <div className="h-20 bg-black" /> {/* 헤더 fixed 배경색 */}
         <HeroSection />
         <ServicesSection />
         <TargetSection />
         <PoCSection />
         <ContactSection />
-      </main>
+      </Content>
       <Footer />
-    </div>
+    </Layout>
   )
 }
+
+export default Index
