@@ -1,34 +1,44 @@
-import { Button, CategoryLabel, Text, Title } from '@/components/ui'
+import {
+  Button,
+  CategoryLabel,
+  MotionGroup,
+  Text,
+  Title,
+} from '@/components/ui'
 import { cx } from '@/lib/utils'
 import { Space } from 'antd'
 import { Mail, MapPin } from 'lucide-react'
-import { motion } from 'motion/react'
+import { motion, stagger, Variants } from 'motion/react'
 import ContactCard from './ContactCard'
-import { CONTENT } from './ContactSection'
 
-const fadeUpVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 },
+const container: Variants = {
+  hidden: {},
+  visible: {
+    transition: { delayChildren: stagger(0.15, { startDelay: 0.2 }) },
+  },
 }
 
-const ContactInfo = ({ colors }) => {
+const item: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+}
+
+const ContactInfo = ({ data, colors }) => {
   return (
     <motion.div
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      transition={{ staggerChildren: 0.15 }}
+      variants={container}
       className={cx('space-y-8')}
     >
-      <motion.div variants={fadeUpVariants} transition={{ duration: 0.5 }}>
+      <MotionGroup variants={item}>
         <CategoryLabel color={colors.formCardBackground}>
           <Text sm medium color={colors.text}>
-            {CONTENT.categoryLabel}
+            {data.categoryLabel}
           </Text>
         </CategoryLabel>
-      </motion.div>
 
-      <motion.div variants={fadeUpVariants} transition={{ duration: 0.5 }}>
         <Title
           level={2}
           text4xl
@@ -41,45 +51,41 @@ const ContactInfo = ({ colors }) => {
             'mb-0',
           )}
         >
-          {CONTENT.heading}
+          {data.heading}
         </Title>
-      </motion.div>
 
-      <motion.div variants={fadeUpVariants} transition={{ duration: 0.5 }}>
         <Text
           lg
           color={colors.textSecondary}
           className={cx('leading-relaxed', 'whitespace-pre-line')}
         >
-          {CONTENT.description}
+          {data.description}
         </Text>
-      </motion.div>
 
-      <motion.div variants={fadeUpVariants} transition={{ duration: 0.5 }}>
         <Space vertical size="middle" className={cx('w-full')}>
           <ContactCard
             icon={<Mail size={24} className={cx('text-black')} />}
-            text={CONTENT.email}
+            text={data.email}
           >
             <Button
               type="primary"
-              href={`mailto:${CONTENT.email}`}
+              href={`mailto:${data.email}`}
               style={{
                 backgroundColor: '#000000',
                 color: '#ffffff',
                 border: 'none',
               }}
             >
-              {CONTENT.emailButton}
+              {data.emailButton}
             </Button>
           </ContactCard>
           <ContactCard
             icon={<MapPin size={24} className={cx('text-black')} />}
-            text={CONTENT.address}
+            text={data.address}
           >
             <Button
               type="primary"
-              href={CONTENT.mapUrl}
+              href={data.mapUrl}
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -88,11 +94,11 @@ const ContactInfo = ({ colors }) => {
                 border: 'none',
               }}
             >
-              {CONTENT.addressButton}
+              {data.addressButton}
             </Button>
           </ContactCard>
         </Space>
-      </motion.div>
+      </MotionGroup>
     </motion.div>
   )
 }

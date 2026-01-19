@@ -18,7 +18,7 @@ const ContactCard = ({
       className={cx('border-none', 'bg-[#ECECEC]')}
       styles={{ body: { padding: '1rem' } }}
     >
-      <Flex justify="space-between" align="center" wrap="wrap" gap="middle">
+      <Flex justify="space-between" align="center" gap="middle">
         <Flex align="center" gap="middle">
           {icon}
           <Text base color="black">

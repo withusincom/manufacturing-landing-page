@@ -2,38 +2,35 @@ import { Input, Text, TextArea, Title } from '@/components/ui'
 import { cx } from '@/lib/utils'
 import { ColorMode } from '@/styles/Colors'
 import { Button, Checkbox, Flex, Form, message } from 'antd'
+import _ from 'lodash'
 import { motion } from 'motion/react'
 import styled from 'styled-components'
-import { CONTENT } from './ContactSection'
+import { ContactFormData, ContactFormItem } from './ContactSection'
 
-interface ContactFormProps {
+export interface ContactFormValues {
+  name: string
+  company?: string
+  email: string
+  phone: string
+  question: string
+  checkbox: boolean
+}
+export interface ContactFormProps {
+  data: ContactFormData
   colors: ColorMode
-  onSubmit?: (values: {
-    name: string
-    subject: string
-    email: string
-    phone: string
-    question: string
-    checkbox: boolean
-  }) => void
+  onSubmit?: (values: ContactFormValues) => void
 }
 
-const ContactForm = ({ colors, onSubmit }: ContactFormProps) => {
-  const [form] = Form.useForm()
+const ContactForm = ({ data, colors, onSubmit }: ContactFormProps) => {
+  const [form] = Form.useForm<ContactFormValues>()
+  const [messageApi, contextHolder] = message.useMessage()
 
-  const handleFinish = (values: {
-    name: string
-    subject: string
-    email: string
-    phone: string
-    question: string
-    checkbox: boolean
-  }) => {
+  const handleFinish = (values: ContactFormValues) => {
     onSubmit?.(values)
   }
 
   const handleFinishFailed = (errorInfo: {
-    values: Record<string, any>
+    values: ContactFormValues
     errorFields?: Array<{
       name: (string | number)[]
       errors: string[]
@@ -47,11 +44,11 @@ const ContactForm = ({ colors, onSubmit }: ContactFormProps) => {
     // 필드 순서 정의 (폼에 나타나는 순서대로)
     const fieldOrder = ['name', 'email', 'phone', 'question', 'checkbox']
     const fieldLabels: Record<string, string> = {
-      name: '이름',
-      email: '이메일',
-      phone: '전화번호',
-      question: '문의 사항',
-      checkbox: '개인정보 수집 동의',
+      name: data.fields.name.label,
+      email: data.fields.email.label,
+      phone: data.fields.phone.label,
+      question: data.fields.question.label,
+      checkbox: data.fields.checkbox.label,
     }
 
     // 에러 필드를 순서대로 정렬
@@ -72,7 +69,7 @@ const ContactForm = ({ colors, onSubmit }: ContactFormProps) => {
       const firstError = sortedErrors[0]
       const label = fieldLabels[firstError.name] || firstError.name
       const errorMessage = firstError.errors[0] || `${label}을(를) 입력해주세요`
-      message.warning(errorMessage, 3)
+      messageApi.warning(errorMessage, 3)
 
       // 첫 번째 에러 필드로 스크롤
       setTimeout(() => {
@@ -88,6 +85,42 @@ const ContactForm = ({ colors, onSubmit }: ContactFormProps) => {
       }, 100)
     }
   }
+
+  const renderChildren = (key: string, value: ContactFormItem) => {
+    if (_.includes(['text', 'email', 'tel'], value.type)) {
+      return (
+        <Input
+          type={value.type}
+          placeholder={data.fields.company.placeholder}
+          size="large"
+          style={{
+            backgroundColor: colors.inputBackground,
+            color: colors.text,
+            border: 'none',
+          }}
+        />
+      )
+    }
+
+    if (value.type === 'textarea') {
+      return (
+        <TextArea
+          rows={5}
+          placeholder={data.fields.question.placeholder}
+          style={{
+            backgroundColor: colors.inputBackground,
+            color: colors.text,
+            border: 'none',
+            resize: 'vertical',
+          }}
+        />
+      )
+    }
+
+    if (value.type === 'checkbox') {
+      return <Checkbox>{data.fields.checkbox.placeholder}</Checkbox>
+    }
+  }
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -96,9 +129,10 @@ const ContactForm = ({ colors, onSubmit }: ContactFormProps) => {
       transition={{ duration: 0.6, delay: 0.2 }}
       className={cx('relative')}
     >
+      {contextHolder}
       {/* Gradient Border Effect */}
       <div
-        className={cx('absolute', 'inset-0', 'rounded-2xl', 'p-[2px]')}
+        className={cx('absolute', 'inset-0', 'rounded-2xl', 'p-0.5')}
         style={{
           background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientEnd})`,
         }}
@@ -123,167 +157,66 @@ const ContactForm = ({ colors, onSubmit }: ContactFormProps) => {
           color={colors.text}
           className={cx('md:text-3xl', 'mb-6')}
         >
-          {CONTENT.formTitle}
+          {data.formTitle}
         </Title>
 
         <Flex vertical gap="middle">
           <Flex gap="middle" wrap className={cx('max-md:flex-col')}>
-            <Form.Item
-              className={cx('flex-1')}
-              name="name"
-              label={
-                <Text base color={colors.text}>
-                  {CONTENT.fields.name.label}
-                </Text>
-              }
-              rules={[
-                {
-                  required: true,
-                  message: CONTENT.errorMessages.name.required,
-                },
-              ]}
-              help=""
-            >
-              <Input
-                placeholder={CONTENT.fields.name.placeholder}
-                size="large"
-                style={{
-                  backgroundColor: colors.inputBackground,
-                  color: colors.text,
-                  border: 'none',
-                }}
-              />
-            </Form.Item>
-
-            <Form.Item
-              name="company"
-              className={cx('flex-1')}
-              label={
-                <Text base color={colors.text}>
-                  {CONTENT.fields.company.label}
-                </Text>
-              }
-            >
-              <Input
-                placeholder={CONTENT.fields.company.placeholder}
-                size="large"
-                style={{
-                  backgroundColor: colors.inputBackground,
-                  color: colors.text,
-                  border: 'none',
-                }}
-              />
-            </Form.Item>
+            {Object.entries(data.fields).map(
+              ([key, value]) =>
+                value.layout === 'row' && (
+                  <Form.Item
+                    className={cx(' flex-1')}
+                    key={key}
+                    name={key}
+                    label={
+                      <Text base color={colors.text}>
+                        {data.fields.phone.label}
+                      </Text>
+                    }
+                    rules={data.fields.phone.rules}
+                    valuePropName={key === 'checkbox' ? 'checked' : 'value'}
+                    help=""
+                  >
+                    {renderChildren(key, value)}
+                  </Form.Item>
+                ),
+            )}
           </Flex>
+          {Object.entries(data.fields).map(
+            ([key, value]) =>
+              value.layout === 'col' && (
+                <Form.Item
+                  className={cx('flex-1')}
+                  key={key}
+                  name={key}
+                  label={
+                    <Text base color={colors.text}>
+                      {data.fields.phone.label}
+                    </Text>
+                  }
+                  rules={data.fields.phone.rules}
+                  valuePropName={key === 'checkbox' ? 'checked' : 'value'}
+                  help=""
+                >
+                  {renderChildren(key, value)}
+                </Form.Item>
+              ),
+          )}
 
-          <Form.Item
-            name="email"
-            label={
-              <Text base color={colors.text}>
-                {CONTENT.fields.email.label}
-              </Text>
-            }
-            rules={[
-              {
-                required: true,
-                message: CONTENT.errorMessages.email.required,
-              },
-              {
-                type: 'email',
-                message: CONTENT.errorMessages.email.email,
-              },
-            ]}
-            help=""
+          <Button
+            type="primary"
+            htmlType="submit"
+            size="large"
+            style={{
+              backgroundColor: colors.buttonBackground,
+              color: colors.buttonText,
+              border: 'none',
+              width: '100%',
+            }}
           >
-            <Input
-              type="email"
-              size="large"
-              placeholder={CONTENT.fields.email.placeholder}
-              style={{
-                backgroundColor: colors.inputBackground,
-                color: colors.text,
-                border: 'none',
-              }}
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="phone"
-            label={
-              <Text base color={colors.text}>
-                {CONTENT.fields.phone.label}
-              </Text>
-            }
-            rules={[
-              {
-                required: true,
-                message: CONTENT.errorMessages.phone.required,
-              },
-            ]}
-            help=""
-          >
-            <Input
-              type="tel"
-              size="large"
-              placeholder={CONTENT.fields.phone.placeholder}
-              style={{
-                backgroundColor: colors.inputBackground,
-                color: colors.text,
-                border: 'none',
-              }}
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="question"
-            label={
-              <Text base color={colors.text}>
-                {CONTENT.fields.question.label}
-              </Text>
-            }
-            rules={[{ required: true, message: '문의 사항을 입력해주세요' }]}
-            help=""
-          >
-            <TextArea
-              rows={5}
-              placeholder={CONTENT.fields.question.placeholder}
-              style={{
-                backgroundColor: colors.inputBackground,
-                color: colors.text,
-                border: 'none',
-                resize: 'vertical',
-              }}
-            />
-          </Form.Item>
-
-          <Form.Item
-            noStyle
-            name="checkbox"
-            valuePropName="checked"
-            rules={[
-              {
-                required: true,
-                message: CONTENT.errorMessages.checkbox.required,
-              },
-            ]}
-          >
-            <Checkbox>{CONTENT.fields.checkbox.label}</Checkbox>
-          </Form.Item>
-          <Form.Item noStyle>
-            <Button
-              type="primary"
-              htmlType="submit"
-              size="large"
-              style={{
-                backgroundColor: colors.buttonBackground,
-                color: colors.buttonText,
-                border: 'none',
-                width: '100%',
-              }}
-            >
-              {CONTENT.submitButton}
-            </Button>
-          </Form.Item>
+            {data.submitButton}
+          </Button>
         </Flex>
       </StyledForm>
     </motion.div>
@@ -292,7 +225,7 @@ const ContactForm = ({ colors, onSubmit }: ContactFormProps) => {
 
 export default ContactForm
 
-const StyledForm = styled(Form)`
+const StyledForm = styled(Form<ContactFormValues>)`
   .ant-form-item {
     margin-bottom: 0;
   }
@@ -304,8 +237,5 @@ const StyledForm = styled(Form)`
   }
   .ant-form-item-control-input {
     margin-bottom: 0;
-  }
-  .ant-form-item-explain {
-    display: none;
   }
 `
