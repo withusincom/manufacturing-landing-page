@@ -43,7 +43,7 @@ const getBadgeColor = (badgeColor: string): string => {
 export const ServiceItem = ({ service }: ServiceSectionProps) => {
   return (
     <motion.div
-      className="py-24"
+      className="pb-24"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
