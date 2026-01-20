@@ -107,7 +107,7 @@ export const COLORS = {
   yellow: YELLOW.yellow500,
   blue: BLUE.blue500,
   green: GREEN.green500,
-
+  ...RED,
   ...BLUE,
   ...GRAY,
   ...PURPLE,
