@@ -1,5 +1,4 @@
 import { Service } from '@/constants/services'
-import { Flex } from 'antd'
 import { motion, stagger } from 'motion/react'
 import ServiceFeature from './ServiceFeature'
 import ServiceImageCard from './ServiceImageCard'
