@@ -9,9 +9,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 
 const customTheme: ThemeConfig = {
-  token: {
-    colorPrimary: '#000000',
-  },
+  token: {},
 }
 
 const Main = () => (

@@ -1,6 +1,7 @@
-import { CategoryLabel, FlexCenter } from '@/components/ui'
+import { CategoryLabel, FlexCenter, Text } from '@/components/ui'
 import { SERVICES } from '@/constants/services'
 import { ServiceItem } from './ServiceItem'
+import { COLORS } from '@/styles/Colors'
 
 const ServicesSection = () => {
   return (
@@ -10,7 +11,9 @@ const ServicesSection = () => {
     >
       <FlexCenter vertical centerY className="max-w-[922px]">
         <CategoryLabel className="my-4" color={'white'}>
-          솔루션
+          <Text sm medium color={COLORS.text}>
+            솔루션
+          </Text>
         </CategoryLabel>
         {SERVICES.map((service) => (
           <ServiceItem key={service.id} service={service} />

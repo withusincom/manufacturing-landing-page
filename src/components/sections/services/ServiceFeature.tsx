@@ -31,11 +31,11 @@ const ServiceFeature = ({
       <MotionGroup variants={variants} transition={{ duration: 0.5 }}>
         <FlexCenter centerY gap={12} className="mb-4">
           <CategoryLabel color={color}>
-            <Text xs color="white" normal>
+            <Text xs color="white">
               {text}
             </Text>
           </CategoryLabel>
-          <Text xs color="#a1a1a1" normal>
+          <Text xs color="#a1a1a1">
             {number}
           </Text>
         </FlexCenter>
@@ -48,12 +48,7 @@ const ServiceFeature = ({
           {title}
         </Title>
 
-        <P
-          sm
-          normal
-          color="#525252"
-          className="text-neutral-600 leading-[24.38px]"
-        >
+        <P sm color="#525252" className="text-neutral-600 leading-[24.38px]">
           {description}
         </P>
       </MotionGroup>

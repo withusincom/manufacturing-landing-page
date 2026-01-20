@@ -154,7 +154,7 @@ const TargetSection = () => {
       viewport={{ once: true }}
       variants={container}
     >
-      <FlexCenter center vertical>
+      <FlexCenter center vertical className="w-full">
         <TargetHeader data={TARGET_CONTENT} />
         <TargetContents
           options={targetOptions}

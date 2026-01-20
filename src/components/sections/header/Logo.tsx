@@ -2,9 +2,9 @@ import { Text } from '@/components/ui'
 import { cx } from '@/lib/utils'
 import { Flex, Image } from 'antd'
 
-const Logo = () => {
+const Logo = ({ className = '' }) => {
   return (
-    <Flex align="center" gap={8} className={cx('h-12')}>
+    <Flex align="center" gap={8} className={cx('h-12', className)}>
       <Image
         src="/assets/logo.png"
         alt="FabMind"

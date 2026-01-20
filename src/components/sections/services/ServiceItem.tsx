@@ -3,6 +3,7 @@ import { Flex } from 'antd'
 import { motion, stagger } from 'motion/react'
 import ServiceFeature from './ServiceFeature'
 import ServiceImageCard from './ServiceImageCard'
+import { FlexCenter } from '@/components/ui'
 
 const container = {
   hidden: {},
@@ -49,13 +50,12 @@ export const ServiceItem = ({ service }: ServiceSectionProps) => {
       viewport={{ once: true }}
       variants={container}
     >
-      <Flex
+      <FlexCenter
         vertical
         className={`${
           service.layout === 'right' ? 'lg:flex-row-reverse' : 'lg:flex-row'
         }`}
-        justify="center"
-        align="center"
+        center
         gap={40}
         wrap={false}
       >
@@ -73,7 +73,7 @@ export const ServiceItem = ({ service }: ServiceSectionProps) => {
           backgroundColor={service.backgroundColor}
           variants={feature}
         />
-      </Flex>
+      </FlexCenter>
     </motion.div>
   )
 }

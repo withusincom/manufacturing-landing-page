@@ -12,22 +12,18 @@ type TargetContentProps = {
 
 const TargetContents = ({ options, item, onChange }: TargetContentProps) => {
   return (
-    <MotionGroup variants={feature} className="w-full h-full">
-      <FlexCenter center className="w-full h-full">
-        <StyledSegmented
-          size="small"
-          options={options}
-          className="mt-2 p-2"
-          onChange={onChange}
-        />
-      </FlexCenter>
+    <MotionGroup variants={feature}>
+      <StyledSegmented
+        size="small"
+        options={options}
+        className="mt-2 p-2"
+        onChange={onChange}
+      />
 
       <FlexCenter
         center
         gap={48}
-        className={cx(
-          'lg:gap-16 my-12 max-lg:p-6 max-lg:flex-col w-full h-full',
-        )}
+        className={cx('lg:gap-16 my-12 max-lg:p-6 max-lg:flex-col h-full')}
       >
         <Image
           src={item.image.src}
